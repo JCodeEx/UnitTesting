@@ -23,5 +23,16 @@ But the @RunWith(MockitoJunitRunner.class) we need to add on top of the class.
 @RunWith is not showing because Spring Boot 4 uses JUnit 5, 
 and @RunWith is a JUnit 4 annotation. You must use @ExtendWith(...) 
 or Spring’s test annotations instead.
+====================================
+@Test
+public void returnWithParameter(){
+when(mock.get(0)).thenReturn("HelloJunit");
+assertEquals("HelloJunit",mock.get(0));
+assertEquals(null,mock.get(1));
+}
+
+here when we are calling a specific index then we will get the 
+
+
 
 
