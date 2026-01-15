@@ -40,13 +40,7 @@ class SomeDataServiceOneElementStub implements SomeDataService{
 @ExtendWith(MockitoExtension.class)
 class SomeBusinessMockTest {
     @InjectMocks
-    SomeBusinessMockImpl business = new SomeBusinessMockImpl();
-   // SomeDataService mockDataService = mock(SomeDataService.class);
-   /* @BeforeEach
-    public void before(){
-
-        business.setSomeDataService(mockDataService);
-    }*/
+    SomeBusinessMockImpl business ;
     @Mock
    SomeDataService mockDataService;
     @Test
@@ -64,9 +58,7 @@ public void calculateSumUsingDataService_basic(){
 }
     @Test
     public void calculateSumUsingDataService_empty(){
-       // SomeBusinessMockImpl business = new SomeBusinessMockImpl();
-       // SomeDataService mockDataService = mock(SomeDataService.class);
-///mockDataService retriveAllData() this will return new int[]{}
+     ///mockDataService retriveAllData() this will return new int[]{}
         when(mockDataService.retriveAllData()).thenReturn(new int[]{});
        // business.setSomeDataService(mockDataService); -- this is used in @Before but in junit 5 it is @BeforeEach
         int actualResult=business.calculateSumUsingDataService();//new int[]{}
@@ -75,11 +67,7 @@ public void calculateSumUsingDataService_basic(){
     }
     @Test
     public void calculateSumUsingDataService_OneValue(){
-       /* SomeBusinessMockImpl business = new SomeBusinessMockImpl();
-        SomeDataService mockDataService = mock(SomeDataService.class);*/
-        when(mockDataService.retriveAllData()).thenReturn(new int[]{5});
-        //business.setSomeDataService(mockDataService);//used in @Before when Junit 5 we used
-        int actualResult=business.calculateSumUsingDataService();//new int []{5}
+        when(mockDataService.retriveAllData()).thenReturn(new int[]{5});        int actualResult=business.calculateSumUsingDataService();//new int []{5}
         int expectedResult=5;
         assertEquals(expectedResult,actualResult);
     }
