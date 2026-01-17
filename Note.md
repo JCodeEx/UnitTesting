@@ -51,64 +51,14 @@ with the class.
 public class HelloWorldControllerTest {
 }
 
-
-
-Old pom FIle :
-
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
-<modelVersion>4.0.0</modelVersion>
-<parent>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-parent</artifactId>
-<version>4.0.1</version>
-<relativePath/> <!-- lookup parent from repository -->
-</parent>
-<groupId>com.javacodex</groupId>
-<artifactId>unittesting</artifactId>
-<version>0.0.1-SNAPSHOT</version>
-<name>unittesting</name>
-<description>Unit testing  for Spring Boot Application</description>
-<url/>
-<licenses>
-<license/>
-</licenses>
-<developers>
-<developer/>
-</developers>
-<scm>
-<connection/>
-<developerConnection/>
-<tag/>
-<url/>
-</scm>
-<properties>
-<java.version>17</java.version>
-</properties>
-<dependencies>
-<dependency>
-<groupId>org.springframework.boot</groupId>
-<artifactId>spring-boot-starter-webmvc</artifactId>
-</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-webmvc-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</build>
-</project>
+JSONAssert::
+When we use "JSONAssert.assertEquals(expectedResponse,actualResponse,true);"
+here it will check all the parameters present in the actual-response and 
+the expected-response and not considering any space commonly.
+But when Strict if False:
+JSONAssert.assertEquals(expectedResponse,actualResponse,false)
+this will not check all but only check the expected value are present 
+actual-response or not.but one more is the value of the present must be same as 
+in the actual response.
+NB- we have two response ans JasonAssert will check the response and where 
+exactly difference it will tell.
