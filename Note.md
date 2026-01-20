@@ -62,3 +62,6 @@ actual-response or not.but one more is the value of the present must be same as
 in the actual response.
 NB- we have two response ans JasonAssert will check the response and where 
 exactly difference it will tell.
+============================================
+How do we test teh Repository mean data layer?
+To test the repository class SpringBoot provides a @DataJpaTest
