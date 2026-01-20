@@ -1,11 +1,21 @@
 package com.javacodex.unittesting.model;
 
-public class Item {
+import jakarta.persistence.*;
 
+@Entity
+@Table
+public class Item {
+    @Id
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column
     private String name;
+    @Column
     private int price;
+    @Column
     private int quantity;
+    @Transient
+    private int value;
 
     public Item(int id, String name, int price, int quantity) {
         this.id = id;
@@ -28,6 +38,14 @@ public class Item {
 
     public int getQuantity() {
         return quantity;
+    }
+
+    public int getValue() {
+        return value;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 
     @Override
