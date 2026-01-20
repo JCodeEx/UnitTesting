@@ -16,6 +16,10 @@ public class Item {
     private int quantity;
     @Transient
     private int value;
+  // Without a no-arg constructor, Hibernate cannot create the object → exception
+    // REQUIRED by JPA
+    public Item() {
+    }
 
     public Item(int id, String name, int price, int quantity) {
         this.id = id;

@@ -15,12 +15,15 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 //@WebMvcTest(ItemController.class)
@@ -30,8 +33,8 @@ public class ItemControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    //@MockBean
-    //private ItemBusinessService businessService;
+    @MockBean
+    private ItemBusinessService businessService;
 
     @Test
     public void dummyItem_basic() throws Exception {
@@ -47,6 +50,7 @@ public class ItemControllerTest {
         //assertEquals("Hello World", mvcResult.getResponse().getContentAsString());
 
     }
+
     @Test
     public void itemFromBusinessService_basic() throws Exception {
         // Before Junit5  we need below code
@@ -66,9 +70,6 @@ public class ItemControllerTest {
 
     @Test
     public void itemFromBusinessService_basic2() throws Exception {
-        // Before Junit5  we need below code
-        /*when(businessService.retriveHardCodeItem())
-                .thenReturn(new Item(2,"Toy",101,10));*/
         RequestBuilder request = MockMvcRequestBuilders
                 .get("/item-from-business-service")
                 .accept(MediaType.APPLICATION_JSON);
@@ -80,6 +81,71 @@ public class ItemControllerTest {
         JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
 
     }
+
+    @Test
+    public void retrieveAllItems_basic() throws Exception {
+        when(businessService.retrieveAllItems())
+                .thenReturn(Arrays.asList(new Item(1,"Ball",10,100),
+                        new Item(2,"Toy",15,10)));
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/all-items-from-database")
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(content()
+                        .json("[{id:1,name:Ball,price:10,quantity:100},{id:2,name:Toy,price:15,quantity:10}]"))
+                .andReturn();
+
+        String expected = "[{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100},{\"id\":2,\"name\":\"Toy\",\"price\":15,\"quantity\":10}]";
+
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
+
+    }
+
+
+    @Test
+    public void retrieveAllItems_basic2() throws Exception {
+       /* when(businessService.retrieveAllItems())
+                .thenReturn(Arrays.asList(new Item(1,"Ball",10,100)));*/
+        RequestBuilder request = MockMvcRequestBuilders
+                .get("/all-items-from-database")
+                .accept(MediaType.APPLICATION_JSON);
+
+        MvcResult mvcResult = mockMvc.perform(request)
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(4))
+                .andExpect(jsonPath("$[0].name").value("Item1"))
+                .andExpect(jsonPath("$[1].name").value("Item2"))
+                .andExpect(jsonPath("$[2].name").value("Item3"))
+                .andExpect(jsonPath("$[3].name").value("Item4"))
+                .andReturn();
+        // .andExpect(content().json("[{id:1,name:Ball,price:10,quantity:100}]"))
+        // .andReturn();
+
+        //String expected = "[{\"id\":1,\"name\":\"Ball\",\"price\":10,\"quantity\":100}]";
+
+        // below tax format from java 15
+        String expected =
+                """
+                        [
+                         {"name":"Item1"},
+                         {"name":"Item2"},
+                         {"name":"Item3"},
+                         {"name":"Item4"}
+                        ]
+                        """;
+
+        JSONAssert.assertEquals(expected, mvcResult.getResponse().getContentAsString(), false);
+
+    }
+
+
+
+
+
+
+
 
     /* call to url -- /hello-world via GET method and response will be like
     Application/json .
@@ -108,9 +174,27 @@ then we dont need them as well
  @MockBean private ItemBusinessService businessService;
 when(businessService.retriveHardCodeItem()).thenReturn(new Item(2,"Toy",10,25));
 
+Java 8/11
+String expected =
+        "[\n" +
+        "  { \"name\": \"Item1\" },\n" +
+        "  { \"name\": \"Item2\" },\n" +
+        "  { \"name\": \"Item3\" },\n" +
+        "  { \"name\": \"Item4\" }\n" +
+        "]";
+        Java 15 :
+        String expected =
+                """
+                        [
+                         {"name":"Item1"},
+                         {"name":"Item2"},
+                         {"name":"Item3"},
+                         {"name":"Item4"}
+                        ]
+                        """;
 
     */
 
 
-    }
+}
 
