@@ -65,3 +65,14 @@ exactly difference it will tell.
 ============================================
 How do we test teh Repository mean data layer?
 To test the repository class SpringBoot provides a @DataJpaTest
+
+@SpringBootTest::
+First the SpringBoot will search the @SpringBootApplication in the current
+Package or its parent , the @SpringBootTest is in package com.javacodex.unittesting.controller;
+the SSpringBootApplication will not there so it search in package com.javacodex.unittesting; and 
+it will found there .
+So now SpringBoot will lunches the enter Springboot Context so all components are
+loaded ( Service ,Repo,Controller,DataSource,Data file every thing)
+@SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) this will
+take the port which is not used when we do the testing on web Environment.
+
