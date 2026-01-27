@@ -16,6 +16,8 @@ public void learnHamcrest(){
         assertThat(numbers, hasItem(23));
         assertThat(numbers, everyItem(greaterThan(10)));
         assertThat(numbers, contains(12, 23, 45, 50));
+
+        assertThat("",isEmptyString());
 }
 
 }
