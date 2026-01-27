@@ -76,3 +76,23 @@ loaded ( Service ,Repo,Controller,DataSource,Data file every thing)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT) this will
 take the port which is not used when we do the testing on web Environment.
 
+=========================================
+We can override the properties by defining a new properties file in out test 
+folder , application.properties
+and whatever properties we're defining  those are taken over the original application
+properties file.
+Specific properties file for specific test:
+Create a file like xxxx.properties
+then use this file in the specific test we want to use
+@TestPropertySourc(location={with path/xxx.properties})
+public class Unitesting{
+@Test
+public void helloTest(){
+
+}
+}
+
+===========================================================
+
+
+
