@@ -1,4 +1,4 @@
-package com.javacodex.unittesting.business;
+package com.javacodex.unittesting.spike;
 
 import org.junit.jupiter.api.Test;
 
