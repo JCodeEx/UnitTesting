@@ -14,7 +14,7 @@ public class UnitTestingApplication {
 		System.out.println("hello unit testing....");
 
 		SomeBusinessMockImpl test= new SomeBusinessMockImpl();
-		System.out.println(test.calculateSumUsingDataService());
+		//System.out.println(test.calculateSumUsingDataService());
 	}
 
 }
